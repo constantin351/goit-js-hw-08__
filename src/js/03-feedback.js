@@ -16,8 +16,7 @@ addSavedData();
 // в которых сохраняй текущие значения полей формы. Пусть ключом для хранилища будет строка "feedback-form-state".
 
 function onFormInput(event) { 
-    formData[event.target.name] = event.target.value;
-    // console.log(formData)
+    formData[event.target.name] = event.target.value.trim();
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(formData))
 }
 
@@ -26,7 +25,17 @@ function onFormInput(event) {
 function onFormSubmit(event) { 
     event.preventDefault();
     const storageData = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
-    console.log(storageData);
+
+    if (form.elements.email.value === "" || form.elements.message.value === "") {
+        alert("Fill into all the fields");
+    }
+    else if (form.elements.message.value.trim() === "") {
+        alert("The Message filed is empty. Please fill into the Message field");
+    }
+    else {        
+        console.log(storageData);
+    }
+
     event.currentTarget.reset();
     localStorage.removeItem(LOCALSTORAGE_KEY);
 }
@@ -37,7 +46,6 @@ function onFormSubmit(event) {
 function addSavedData() { 
     const savedData = localStorage.getItem(LOCALSTORAGE_KEY);
     const parsedSavedData = JSON.parse(savedData);
-    // console.log(parsedSavedData);
 
     if (savedData) { 
         emailInput.value = parsedSavedData.email;

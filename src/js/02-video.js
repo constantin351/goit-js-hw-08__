@@ -11,7 +11,7 @@ const LOCALSTORAGE_KEY = "videoplayer-current-time";
     // player.setCurrentTime("videoplayer-current-time", seconds);
     localStorage.setItem("videoplayer-current-time", seconds);
 
-    console.log(localStorage);
+    // console.log(localStorage);
 };
 
 player.on('timeupdate', throttle(onPlay, 1000));
